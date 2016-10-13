@@ -1,75 +1,61 @@
-# node-project
-Empty node project using continuous integration tools to ensure code quality.
-## Creating new project
+# node-error
+Error module handling sprintf error message formatting and errors chaining
+
+## Install
+
 ```
-export PROJECT_DIRECTORY="<project directory>"; \
-export GIT_REPOSITORY="git@github.com:<github user>/<github repository>.git"; \
-git clone git@github.com:petitchevalroux/node-project.git $PROJECT_DIRECTORY; \
-cd $PROJECT_DIRECTORY; \
-git remote remove origin; \
-git remote add origin $GIT_REPOSITORY; \
-git remote add node-project git@github.com:petitchevalroux/node-project.git; \
-make install-git-hook;
+npm install --save "@petitchevalroux/error"
 ```
 
-/!\ DO NOT FORGET TO UPGRADE YOUR package.json/!\
+## Sprintf formatting
 
-## Make commands
-### Install
-Install dependencies
-```
-make install
-```
-
-### Run tests
-Run tests. Tests are located in tests/ directory and run using [mocha](https://github.com/mochajs/mocha).
-```
-make tests
+```javascript
+var Error = require("@petitchevalroux/error");
+var error = new Error("this is a sample message with object:%j", {"foo":"bar"});
+console.log(error.message);
 ```
 
-### Run beautifier
-Beautify javascript files using [js-beautify](https://github.com/beautify-web/js-beautify).
+### Output
+
 ```
-make beautify
+this is a sample message with object:{"foo":"bar"}
 ```
 
-### Run linter
-Run linter on javascript files using [eslint](https://github.com/eslint/eslint).
-Native promises are forbidden. Promise's good practice are checked using
-[eslint-plugin-promise](https://github.com/xjamundx/eslint-plugin-promise)
-```
-make lint
+For more on formatting using sprintf syntax see: [sprintf-js](https://www.npmjs.com/package/sprintf-js)
+
+## Error chaining
+
+```javascript
+var Error = require("@petitchevalroux/error");
+var error = new Error("error #%d",2, new Error("error #%d", 1));
+console.log(error);
 ```
 
-### Generate code's coverage files
-Coverage files are generated using istanbul [istanbul](https://github.com/gotwarlost/istanbul).
-They are located in coverage/ directory. You can find lcov.info in coverage/lcov.info.
+### Output
+
 ```
-make coverage
+CustomError: error #2
+    at CustomError.Exception (/tmp/test/node_modules/trace-error/dist/Exception.js:82:17)
+    at CustomError.TraceError (/tmp/test/node_modules/trace-error/dist/TraceError.js:173:84)
+    at new CustomError (/tmp/test/node_modules/@petitchevalroux/error/src/error.js:23:16)
+    at Object.<anonymous> (/tmp/test/sample1.js:2:13)
+    at Module._compile (module.js:570:32)
+    at Object.Module._extensions..js (module.js:579:10)
+    at Module.load (module.js:487:32)
+    at tryModuleLoad (module.js:446:12)
+    at Function.Module._load (module.js:438:3)
+    at Module.runMain (module.js:604:10)
+    CustomError: error #1
+        at CustomError.Exception (/tmp/test/node_modules/trace-error/dist/Exception.js:82:17)
+        at CustomError.TraceError (/tmp/test/node_modules/trace-error/dist/TraceError.js:173:84)
+        at new CustomError (/tmp/test/node_modules/@petitchevalroux/error/src/error.js:23:16)
+        at Object.<anonymous> (/tmp/test/sample1.js:2:38)
+        at Module._compile (module.js:570:32)
+        at Object.Module._extensions..js (module.js:579:10)
+        at Module.load (module.js:487:32)
+        at tryModuleLoad (module.js:446:12)
+        at Function.Module._load (module.js:438:3)
+        at Module.runMain (module.js:604:10)
 ```
 
-### Open corerage html report
-Html coverage report is located in coverage/lcov-report/index.html.
-The following command open it in your default browser. Launching this command
-without having tests will fail.
-```
-make report
-```
-
-### Install git precommit-hook
-The pre-commit hook is located in git-precommit-hook.sh. The following command
-enable it by creating a symlink from .git/hooks/pre-commit to git-precommit-hook.sh.
-```
-make install-git-hook
-```
-
-### Clean all build and installed files
-```
-make clean
-```
-### Check code coverage
-Code coverage is checked using [istanbul](https://github.com/gotwarlost/istanbul).
-Minimum coverage threshold are 80% by default and can be configured in .istanbul.yml file.
-```
-make check-coverage
-```
+For more on error chaining see: [TraceError](https://www.npmjs.com/package/trace-error)
