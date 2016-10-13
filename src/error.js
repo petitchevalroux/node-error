@@ -1,5 +1,7 @@
+"use strict";
 var TraceError = require("trace-error");
-var sprintf = require('sprintf-js').sprintf;
+var sprintf = require("sprintf-js")
+    .sprintf;
 var util = require("util");
 
 function CustomError(message) {
