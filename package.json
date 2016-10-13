@@ -1,20 +1,20 @@
 {
-  "name": "node-project",
+  "name": "@petitchevalroux/error",
   "version": "1.0.0",
-  "description": "Empty node project",
+  "description": "Error module handling sprintf error message formatting and errors chaining",
   "scripts": {
     "test": "make tests"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://github.com/petitchevalroux/node-project.git"
+    "url": "git+ssh://github.com/petitchevalroux/node-error.git"
   },
   "author": "Patrick Poulain",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/petitchevalroux/node-project/issues"
+    "url": "https://github.com/petitchevalroux/node-error/issues"
   },
-  "homepage": "https://github.com/petitchevalroux/node-project#readme",
+  "homepage": "https://github.com/petitchevalroux/node-error#readme",
   "devDependencies": {
     "eslint": "^3.3.1",
     "eslint-plugin-promise": "^2.0.1",
@@ -22,5 +22,9 @@
     "js-beautify": "^1.6.3",
     "mocha": "^3.0.2",
     "sinon": "^1.17.5"
+  },
+  "dependencies": {
+    "sprintf-js": "^1.0.3",
+    "trace-error": "0.0.7"
   }
 }
