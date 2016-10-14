@@ -1,6 +1,6 @@
 {
   "name": "@petitchevalroux/error",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Error module handling sprintf error message formatting and errors chaining",
   "scripts": {
     "test": "make tests"
